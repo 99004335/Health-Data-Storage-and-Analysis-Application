@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<style>
+/* Style the body */
+body {
+  font-family: Arial;
+  margin: 0;
+}
+
+/* Header/Logo Title */
+.header {
+  padding: 60px;
+  text-align: center;
+  background: #1abc9c;
+  color: white;
+  font-size: 30px;
+}
+
+/* Page Content */
+.content {padding:20px;}
+</style>
+</head>
+<body style="color:#1abc9c">
+<div class="header">
+  
+
+<h1 style="color:white;text-align:center;">Registration System</h1><br>
+
+
+
+<a  th:href = "@{/API/V2/Registration/showNewEmployeeForm}">Patient Registration Page</a>
+
+</div>
+</body>
+</html>
