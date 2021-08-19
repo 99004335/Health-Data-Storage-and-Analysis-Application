@@ -1,0 +1,44 @@
+import simpy
+from random import randint
+import random
+import json
+import datetime
+
+def run():
+    for i in range(5):
+        types=['fasting','pre-meal','post-meal']
+        type=random.choice(types)
+        scale=randint(50,500)
+        ct = str(datetime.datetime.now())
+
+        dictionary ={
+            "timestamp" : ct,
+            "reading" : scale,
+            "type" : type
+        }
+
+        json_object = json.dumps(dictionary, indent = 3)
+
+        with open("C:\\Users\Akshay\Pictures\Blockchain-project\sample.json", "a") as outfile:
+            outfile.write(json_object)
+
+def main():
+    env=simpy.Environment()
+    env.process(blood_sugar(env))
+    env.run(until=180)
+    print("simulation complete")
+
+def blood_sugar(env):
+    while True:
+        t=randint(60,500)
+        print("blood sugar at morning B.S="+str(t))
+        yield env.timeout(60)
+        t=randint(60,500)
+        print("blood sugar at afternoon B.S="+str(t))
+        yield env.timeout(60)
+        t=randint(60,500)
+        print("blood sugar at night B.S="+str(t))
+        yield env.timeout(60)
+
+if __name__=="__main__":
+    run()

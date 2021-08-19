@@ -1,0 +1,21 @@
+{
+   "timestamp": "2021-08-18 12:47:08.648898",
+   "reading": 103,
+   "type": "post-meal"
+}{
+   "timestamp": "2021-08-18 12:47:08.649896",
+   "reading": 368,
+   "type": "pre-meal"
+}{
+   "timestamp": "2021-08-18 12:47:08.650899",
+   "reading": 473,
+   "type": "pre-meal"
+}{
+   "timestamp": "2021-08-18 12:47:08.651898",
+   "reading": 499,
+   "type": "fasting"
+}{
+   "timestamp": "2021-08-18 12:47:08.652899",
+   "reading": 251,
+   "type": "post-meal"
+}
