@@ -1,44 +1,62 @@
-import simpy
 from random import randint
 import random
 import json
 import datetime
+import mysql.connector
+
+patient_names=[]
+l=0
+
+def database():
+    mydb = mysql.connector.connect(
+        host="localhost",
+        user="yourusername",
+        password="yourpassword",
+        database="database_name"
+    )
+
+    mycursor = mydb.cursor()
+    mycursor.execute("SELECT patient_name FROM patient_table")
+
+    myresult = mycursor.fetchall()
+    global patient_names,l
+
+    for x in myresult:
+        patient_names.append(x)
+
+    l=len(patient_names)
 
 def run():
-    for i in range(5):
-        types=['fasting','pre-meal','post-meal']
-        type=random.choice(types)
-        scale=randint(50,500)
-        ct = str(datetime.datetime.now())
+    global patient_names,l
 
-        dictionary ={
-            "timestamp" : ct,
-            "reading" : scale,
-            "type" : type
-        }
+    f = open("C:\\Users\Akshay\Pictures\Blockchain-project\sample.json", "a")
+    f.write("[")
+    f.close()
+    timestamp=["09:00","11:00","13:00","15:00","21:00","23:00"]
+    for i in range(l):
+        for j in range(6):
+            types=['fasting','pre-meal','post-meal']
+            type=random.choice(types)
+            scale=randint(50,500)
+            ct = str(datetime.date.today())
+            time=ct+timestamp[j]
 
-        json_object = json.dumps(dictionary, indent = 3)
+            dictionary ={"patient "+str(i):{
+                "patient_name" : patient_names[i],
+                "timestamp" : time,
+                "reading" : scale,
+                "type" : type
+            }}
 
-        with open("C:\\Users\Akshay\Pictures\Blockchain-project\sample.json", "a") as outfile:
-            outfile.write(json_object)
+            json_object = json.dumps(dictionary, indent = 4)
 
-def main():
-    env=simpy.Environment()
-    env.process(blood_sugar(env))
-    env.run(until=180)
-    print("simulation complete")
+            with open("C:\\Users\Akshay\Pictures\Blockchain-project\sample.json", "a") as outfile:
+                outfile.write(json_object)
 
-def blood_sugar(env):
-    while True:
-        t=randint(60,500)
-        print("blood sugar at morning B.S="+str(t))
-        yield env.timeout(60)
-        t=randint(60,500)
-        print("blood sugar at afternoon B.S="+str(t))
-        yield env.timeout(60)
-        t=randint(60,500)
-        print("blood sugar at night B.S="+str(t))
-        yield env.timeout(60)
+    f = open("C:\\Users\Akshay\Pictures\Blockchain-project\sample.json", "a")
+    f.write("]")
+    f.close()
 
 if __name__=="__main__":
+    database()
     run()
